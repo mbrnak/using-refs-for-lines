@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState, useRef } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import styles from './index.cssmodule.scss';
 
@@ -13,18 +13,15 @@ export const App: FunctionComponent<Props> = (props) => {
   const [wasRendered, setWasRendered] = useState<boolean>(false);
   useEffect(() => {
     setItemsRef(itemsRef.slice(0, 10));
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', () => {
       setWasRendered(false);
       setWasRendered(true);
     });
   }, []);
 
   useEffect(() => {
-    console.log('itemsRef', itemsRef);
     setWasRendered(true);
   });
-
-  console.log(itemsRef);
 
   const renderNodes = () => {
     const nodes = [];
@@ -42,23 +39,22 @@ export const App: FunctionComponent<Props> = (props) => {
     return nodes;
   };
 
-  const renderLines = () => {
-    return (
-      <svg className={styles.connector}>
-        {itemsRef.map((rect, i) =>
-          i < itemsRef.length - 1 ? (
-            <line
-              x1={itemsRef[i]?.getBoundingClientRect().x}
-              y1={itemsRef[i]?.getBoundingClientRect().y}
-              x2={itemsRef[i + 1]?.getBoundingClientRect().x}
-              y2={itemsRef[i + 1]?.getBoundingClientRect().y}
-              className={styles.line}
-            />
-          ) : null,
-        )}
-      </svg>
-    );
-  };
+  const renderLines = () => (
+    <svg className={styles.connector}>
+      {itemsRef.map((rect, i) =>
+        i < itemsRef.length - 1 ? (
+          <line
+            x1={itemsRef[i]?.getBoundingClientRect().x}
+            y1={itemsRef[i]?.getBoundingClientRect().y}
+            x2={itemsRef[i + 1]?.getBoundingClientRect().x}
+            y2={itemsRef[i + 1]?.getBoundingClientRect().y}
+            className={styles.line}
+          />
+        ) : null,
+      )}
+    </svg>
+  );
+
   return (
     <div className={styles.app}>
       {renderNodes()}

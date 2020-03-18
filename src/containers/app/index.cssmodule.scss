@@ -1,0 +1,33 @@
+@import '~/styles/variables.scss';
+
+.app {
+  height: 100%;
+  overflow-y: auto;
+
+  .nodeContainer {
+    border: 1px solid blue;
+    padding-right: 200px;
+    padding-bottom: 100px;
+    display: inline-block;
+    &:last-of-type {
+      padding-right: 0;
+    }
+    .node {
+      padding: 10px;
+      border: 1px solid red;
+    }
+  }
+  .connector {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    .line {
+      stroke-width: 5px;
+      stroke-dasharray: 5, 5;
+      stroke: green;
+    }
+  }
+}
